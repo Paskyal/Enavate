@@ -2,8 +2,8 @@ table 50100 "Rental Order"
 {
     Caption = 'Rental Order';
     DataClassification = CustomerContent;
-    LookupPageId = "Rental Order";
-    DrillDownPageId = "Rental Order";
+    LookupPageId = "Rental Order line";
+    DrillDownPageId = "Rental Order line";
     fields
     {
         field(1; "No."; Code[20])
