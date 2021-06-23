@@ -47,10 +47,10 @@ table 50100 "Rental Order"
             ValidateTableRelation = false;
             trigger OnLookup()
             var
-                Customer: Record Customer;
+            //   Customer: Record Customer;
             begin
-                Customer.Get();
-                Validate("Customer No.");
+                // Customer.Get();
+                // Validate("Customer No.");
 
             end;
         }

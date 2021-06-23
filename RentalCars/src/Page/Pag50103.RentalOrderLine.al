@@ -1,6 +1,6 @@
 page 50103 "Rental Order Line"
 {
-    Caption = 'Rental Orders';
+    Caption = 'Rental Order Line';
     PageType = List;
     SourceTable = "Rental Order Line";
     UsageCategory = Administration;

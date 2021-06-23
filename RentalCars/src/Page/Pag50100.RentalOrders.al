@@ -1,6 +1,6 @@
-page 50100 "Rental Order"
+page 50100 "Rental Orders"
 {
-    Caption = 'Rental Order';
+    Caption = 'Rental Orders';
     PageType = List;
     SourceTable = "Rental Order";
     CardPageId = "Rental Order Card";
