@@ -29,6 +29,12 @@ page 50100 "Rental Orders"
                     ApplicationArea = All;
                     Visible = false;
                 }
+                field("Customer Name"; Rec."Customer Name")
+                {
+                    ApplicationArea = Basic, Suite;
+                    Caption = 'Customer Name';
+                    ToolTip = 'Specifies the value of the Customer Name field';
+                }
                 field("Posting Date"; Rec."Posting Date")
                 {
                     ToolTip = 'Specifies the value of the Posting Date field';

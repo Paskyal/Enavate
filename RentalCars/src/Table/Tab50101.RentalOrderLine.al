@@ -42,7 +42,6 @@ table 50101 "Rental Order Line"
             DataClassification = CustomerContent;
             trigger OnValidate()
             begin
-
                 UpdateLineAmount();
             end;
         }
@@ -51,18 +50,6 @@ table 50101 "Rental Order Line"
             Caption = 'Price a day';
             DataClassification = CustomerContent;
         }
-        // field(7; "Customer Discount"; Decimal)
-        // {
-        //     Caption = 'Customer Discount';
-        //     FieldClass = FlowField;
-        //     CalcFormula = lookup(Customer."Rental Discount" where("No." = field("Rental Order"."Customer No.")));
-        //     Editable = false;
-        // }
-        // field(8; "Car Discount"; Decimal)
-        // {
-        //     Caption = 'Car Discount';
-        //     DataClassification = CustomerContent;
-        // }
         field(9; "Total Discount"; Decimal)
         {
             Caption = 'Total Discount';

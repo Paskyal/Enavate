@@ -7,7 +7,6 @@ page 50101 "Rental Order Line Part"
     UsageCategory = Administration;
     ApplicationArea = all;
     PopulateAllFields = true;
-    // AutoSplitKey = true;
 
     layout
     {
@@ -53,20 +52,6 @@ page 50101 "Rental Order Line Part"
                     ToolTip = 'Specifies the value of the Line Amount field';
                     ApplicationArea = All;
                 }
-            }
-            group(Discounts)
-            {
-                // field("Customer Discount"; Rec."Customer Discount")
-                // {
-                //     ToolTip = 'Customer Discount';
-                //     ApplicationArea = All;
-                // }
-                // field("Car Discount"; Rec."Car Discount")
-                // {
-                //     ToolTip = 'Car Discount';
-                //     ApplicationArea = All;
-                // }
-
             }
 
         }

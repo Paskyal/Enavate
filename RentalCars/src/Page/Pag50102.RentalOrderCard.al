@@ -17,7 +17,7 @@ page 50102 "Rental Order Card"
                 {
                     ToolTip = 'Specifies the value of the No. field';
                     ApplicationArea = All;
-                    // Editable = false;
+                    Editable = false;
                 }
                 field("Customer No."; Rec."Customer No.")
                 {
@@ -36,26 +36,6 @@ page 50102 "Rental Order Card"
                     ShowMandatory = true;
                     ToolTip = 'Specifies the name of the customer who will receive the products and be billed by default.';
 
-                    trigger OnValidate()
-                    begin
-                        //SelltoCustomerNoOnAfterValidate(Rec, xRec);
-
-                        //  if ApplicationAreaMgmtFacade.IsFoundationEnabled then
-                        //     SalesCalcDiscountByType.ApplyDefaultInvoiceDiscount(0, Rec);
-
-                        // CurrPage.Update();
-                    end;
-
-                    // trigger OnLookup(var Text: Text): Boolean
-                    // begin
-                    //     if LookupSellToCustomerName() then
-                    //         CurrPage.Update();
-                    // end;
-
-                    // field("Order No."; Rec."Order No.")
-                    // {
-                    //     ToolTip = 'Specifies the value of the Doc. No. field';
-                    //     ApplicationArea = All;
                 }
                 field("Salesperson Name"; Rec."Salesperson Name")
                 {

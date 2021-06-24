@@ -27,6 +27,12 @@ pageextension 50106 "RoleCenterExt" extends "Business Manager Role Center"
                     Caption = 'Customers';
                     RunObject = page "Rental Customers";
                 }
+                action("Rental Orders Report")
+                {
+                    ApplicationArea = Basic, Suite;
+                    Caption = 'Rental Orders Report';
+                    RunObject = report "Rental Orders Report";
+                }
             }
 
         }

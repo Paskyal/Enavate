@@ -15,7 +15,6 @@ table 50100 "Rental Order"
                 if "No." <> xRec."No." then begin
                     GetRentalSetup();
                     NoSeriesMgt.TestManual(GetNoSeriesCode());
-                    // "No. Series" := '';
                 end;
             end;
         }
@@ -45,14 +44,6 @@ table 50100 "Rental Order"
             CalcFormula = Lookup(Customer.Name WHERE("No." = field("Customer No.")));
             TableRelation = Customer.Name;
             ValidateTableRelation = false;
-            trigger OnLookup()
-            var
-            //   Customer: Record Customer;
-            begin
-                // Customer.Get();
-                // Validate("Customer No.");
-
-            end;
         }
         field(6; "No. Series"; Code[20])
         {
@@ -76,18 +67,16 @@ table 50100 "Rental Order"
     end;
 
     procedure InitInsert()
-    var
-    //  IsHandled: Boolean;
     begin
         if "No." = '' then begin
-            TestNoSeries();//!
+            TestNoSeries();
             NoSeriesMgt.InitSeries(GetNoSeriesCode(), xRec."No. Series", 0D, "No.", "No. Series");//!
         end;
     end;
 
     local procedure TestNoSeries()
     begin
-        GetRentalSetup();//!
+        GetRentalSetup();
         RentalSetup.Testfield("Order Nos.");
 
     end;
@@ -102,8 +91,6 @@ table 50100 "Rental Order"
     end;
 
     procedure GetNoSeriesCode(): Code[20]
-    var
-    //   NoSeriesCode: Code[20];
     begin
         exit(NoSeriesMgt.GetNoSeriesWithCheck(RentalSetup."Order Nos.", false, "No. Series"));
     end;
