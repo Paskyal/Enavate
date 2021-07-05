@@ -8,6 +8,8 @@ page 50104 "Cars"
     UsageCategory = Lists;
     CardPageId = "Cars Card";
     Editable = false;
+    SourceTableView = where(Type = const(Inventory));
+    PopulateAllFields = true;
     layout
     {
         area(content)

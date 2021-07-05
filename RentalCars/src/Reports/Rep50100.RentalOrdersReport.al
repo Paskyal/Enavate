@@ -3,7 +3,7 @@ report 50100 "Rental Orders Report"
     Caption = 'Rental Orders Report';
     UsageCategory = ReportsAndAnalysis;
     ApplicationArea = All;
-    DefaultLayout = Word;
+    RDLCLayout = 'Rental Orders Report.rdlc';
     WordLayout = 'Rental Orders Report.docx';
     dataset
     {

@@ -7,6 +7,7 @@ page 50105 "Cars Card"
     SourceTable = Item;
     UsageCategory = Documents;
     ApplicationArea = all;
+    PopulateAllFields = true;
 
 
     layout
@@ -94,10 +95,10 @@ page 50105 "Cars Card"
                 Caption = 'Picture';
                 SubPageLink = "No." = FIELD("No.");
             }
-            // part(ItemAttributesFactbox; "Item Attributes Factbox")
-            // {
-            //     ApplicationArea = Basic, Suite;
-            // }
+            part(ItemAttributesFactbox; "Item Attributes Factbox")
+            {
+                ApplicationArea = Basic, Suite;
+            }
         }
 
     }
