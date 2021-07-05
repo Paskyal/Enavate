@@ -8,7 +8,7 @@ page 50104 "Cars"
     UsageCategory = Lists;
     CardPageId = "Cars Card";
     Editable = false;
-    SourceTableView = where(Type = const(Inventory));
+    SourceTableView = where(Type = const(Rental));
     PopulateAllFields = true;
     layout
     {

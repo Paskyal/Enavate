@@ -21,10 +21,16 @@ page 50105 "Cars Card"
                     ToolTip = 'Specifies the value of the No. field';
                     ApplicationArea = All;
                 }
-                // field("Model,Year"; Rec."Model,Year")
-                // {
-                //     ToolTip = 'Specifies the value of the Model,Year field';
-                //     ApplicationArea = All;
+                field(Type; Rec.Type)
+                {
+                    ApplicationArea = Basic, Suite;
+                    ToolTip = 'Specifies if the item card represents a physical inventory unit (Inventory), a labor time unit (Service), or a physical unit that is not tracked in inventory (Non-Inventory).';
+
+                    // trigger OnValidate()
+                    // begin
+                    //     EnableControls;
+                    // end;
+                }
             }
             field("Description"; Rec."Description")
             {
@@ -102,4 +108,68 @@ page 50105 "Cars Card"
         }
 
     }
+    actions
+    {
+        area(processing)
+        {
+            group(ItemActionGroup)
+            {
+                Caption = 'Item';
+                Image = DataEntry;
+                action(Attributes)
+                {
+                    AccessByPermission = TableData "Item Attribute" = R;
+                    ApplicationArea = Basic, Suite;
+                    Caption = 'Attributes';
+                    Image = Category;
+                    Promoted = true;
+                    PromotedCategory = Category4;
+                    PromotedOnly = true;
+                    ToolTip = 'View or edit the item''s attributes, such as color, size, or other characteristics that help to describe the item.';
+
+                    trigger OnAction()
+                    begin
+                        PAGE.RunModal(PAGE::"Item Attribute Value Editor", Rec);
+                        CurrPage.SaveRecord();
+                        CurrPage.ItemAttributesFactbox.PAGE.LoadItemAttributesData(Rec."No.");
+                    end;
+                }
+            }
+        }
+    }
+    trigger OnAfterGetCurrRecord()
+    begin
+        CurrPage.ItemAttributesFactbox.PAGE.LoadItemAttributesData(Rec."No.");
+    end;
+    // procedure EnableControls()
+    // var
+    //     ItemLedgerEntry: Record "Item Ledger Entry";
+    //     PriceType: Enum "Price Type";
+    // begin
+    //     IsService := IsServiceType;
+    //     IsNonInventoriable := IsNonInventoriableType;
+    //     IsInventoriable := IsInventoriableType;
+
+    //     if IsNonInventoriable then
+    //         "Stockout Warning" := "Stockout Warning"::No;
+
+    //     if Type = Type::Inventory then begin
+    //         ItemLedgerEntry.SetRange("Item No.", "No.");
+    //         UnitCostEditable := ItemLedgerEntry.IsEmpty;
+    //     end else
+    //         UnitCostEditable := true;
+
+    //     ProfitEditable := "Price/Profit Calculation" <> "Price/Profit Calculation"::"Profit=Price-Cost";
+    //     PriceEditable := "Price/Profit Calculation" <> "Price/Profit Calculation"::"Price=Cost+Profit";
+
+    //     EnablePlanningControls();
+    //     EnableCostingControls();
+
+    //     if ExtendedPriceEnabled then
+    //         UpdateSpecialPriceListsTxt(PriceType::Any)
+    //     else
+    //         UpdateSpecialPricesAndDiscountsTxt;
+
+    //     SetExpirationCalculationEditable;
+    // end;
 }
