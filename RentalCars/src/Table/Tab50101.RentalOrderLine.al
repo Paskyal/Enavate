@@ -14,52 +14,84 @@ table 50101 "Rental Order Line"
             TableRelation = "Rental Order";
             Editable = false;
         }
-        field(2; "Line No."; Code[20])
+        field(20; "Line No."; Integer)
         {
             Caption = 'No.';
             DataClassification = CustomerContent;
         }
-        field(3; "Car No."; Code[20])
+        field(30; "Car No."; Code[20])
         {
             Caption = 'Item No.';
             DataClassification = CustomerContent;
             TableRelation = "Item";
             trigger OnValidate()
             begin
-                CopyFormItem();
+                CopyFromItem();
             end;
         }
-        field(4; "Car Description"; Text[100])
+        field(40; "Car Description"; Text[100])
         {
             Caption = 'Car Description';
             FieldClass = FlowField;
             CalcFormula = lookup(Item."Description" where("No." = field("Car No.")));
             Editable = false;
+
         }
-        field(5; "Days Amt."; Integer)
+        field(41; "Starting Date"; Date)
+        {
+            Caption = 'Starting Date.';
+            DataClassification = CustomerContent;
+        }
+        field(42; "Ending Date"; Date)
+        {
+            Caption = 'Ending Date.';
+            DataClassification = CustomerContent;
+            trigger OnValidate()
+            begin
+                UpdateDaysAmt();
+            end;
+        }
+        field(50; "Days Amt."; Integer)
         {
             Caption = 'Days Amt.';
             DataClassification = CustomerContent;
+            Editable = false;
+
             trigger OnValidate()
             begin
                 UpdateLineAmount();
             end;
         }
-        field(6; "Price a day"; Decimal)
+        field(60; "Price a day"; Decimal)
         {
             Caption = 'Price a day';
             DataClassification = CustomerContent;
         }
-        field(9; "Total Discount"; Decimal)
+        field(61; "Customer Discount"; Decimal)
+        {
+            Caption = 'Customer Discount';
+            DataClassification = CustomerContent;
+            Editable = false;
+        }
+        field(62; "Car Discount"; Decimal)
+        {
+            Caption = 'Car Discount';
+            DataClassification = CustomerContent;
+
+        }
+        field(70; "Line Discount"; Decimal)
         {
             Caption = 'Total Discount';
             DataClassification = CustomerContent;
+            MaxValue = 100;
+            MinValue = 0;
+            Editable = false;
             trigger OnValidate()
             begin
                 UpdateLineAmount();
             end;
         }
-        field(10; "Line Amount"; Decimal)
+        field(80; "Line Amount"; Decimal)
         {
             Caption = 'Total Amount';
             DataClassification = CustomerContent;
@@ -74,7 +106,7 @@ table 50101 "Rental Order Line"
         }
     }
 
-    local procedure CopyFormItem()
+    local procedure CopyFromItem()
     var
         Item: Record Item;
     begin
@@ -82,10 +114,19 @@ table 50101 "Rental Order Line"
             exit;
         Item.Get("Car No.");
         Rec.Validate("Price a day", Item."Unit Price");
+        Rec.Validate("Car Discount", Item."Car Discount");
+    end;
+
+
+
+    local procedure UpdateDaysAmt()
+    begin
+        if (Rec."Ending Date" <> 0D) and (Rec."Starting Date" <> 0D) then
+            Rec.validate("Days Amt.", "Ending Date" - "Starting Date" + 1);
     end;
 
     local procedure UpdateLineAmount()
     begin
-        Rec.Validate("Line Amount", "Days Amt." * "Price a day" - ("Days Amt." * "Price a day" * "Total Discount" / 100));
+        Rec.Validate("Line Amount", "Days Amt." * "Price a day" - ("Days Amt." * "Price a day" * "Line Discount" / 100));
     end;
 }

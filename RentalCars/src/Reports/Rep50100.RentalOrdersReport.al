@@ -52,7 +52,7 @@ report 50100 "Rental Orders Report"
             {
 
             }
-            column(Total_Discount; "Total Discount")
+            column(Total_Discount; "Line Discount")
             {
 
             }

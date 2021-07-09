@@ -39,7 +39,7 @@ page 50103 "Rental Order Line"
                     ToolTip = 'Specifies the value of the Days Amt. field';
                     ApplicationArea = All;
                 }
-                field("Total Discount"; Rec."Total Discount")
+                field("Total Discount"; Rec."Line Discount")
                 {
                     Caption = 'Total Discount';
                     ToolTip = 'Specifies the value of the Total Discount field';

@@ -66,7 +66,7 @@ page 50104 "Cars"
                     Promoted = true;
                     PromotedOnly = true;
                     PromotedCategory = Category6;
-                    //Visible = not ExtendedPriceEnabled;
+                    Visible = not ExtendedPriceEnabled;
                     ToolTip = 'Set up sales prices for the selected item. An item price is automatically used on invoice lines when the specified criteria are met, such as customer, quantity, or ending date.';
                     ObsoleteState = Pending;
                     ObsoleteReason = 'Replaced by the new implementation (V16) of price calculation.';
@@ -74,7 +74,7 @@ page 50104 "Cars"
 
                     trigger OnAction()
                     begin
-                        //             ShowPrices();
+                        ShowPrices();
                     end;
                 }
                 action(Prices_LineDiscounts)
@@ -86,7 +86,7 @@ page 50104 "Cars"
                     Promoted = true;
                     PromotedOnly = true;
                     PromotedCategory = Category6;
-                    //Visible = not ExtendedPriceEnabled;
+                    Visible = not ExtendedPriceEnabled;
                     ToolTip = 'Set up sales discounts for the selected item. An item discount is automatically granted on invoice lines when the specified criteria are met, such as customer, quantity, or ending date.';
                     ObsoleteState = Pending;
                     ObsoleteReason = 'Replaced by the new implementation (V16) of price calculation.';
@@ -94,7 +94,7 @@ page 50104 "Cars"
 
                     trigger OnAction()
                     begin
-                        // ShowLineDiscounts();
+                        ShowLineDiscounts();
                     end;
                 }
                 action(PricesDiscountsOverview)
@@ -105,7 +105,7 @@ page 50104 "Cars"
                     Promoted = true;
                     PromotedOnly = true;
                     PromotedCategory = Category6;
-                    //     Visible = not ExtendedPriceEnabled;
+                    Visible = not ExtendedPriceEnabled;
                     ToolTip = 'View the sales prices and line discounts that you grant for this item when certain criteria are met, such as vendor, quantity, or ending date.';
                     ObsoleteState = Pending;
                     ObsoleteReason = 'Replaced by the new implementation (V16) of price calculation.';
@@ -123,15 +123,37 @@ page 50104 "Cars"
             }
         }
     }
-    // local procedure ShowLineDiscounts()
-    // var
-    //     SalesLineDiscount: Record "Sales Line Discount";
-    // begin
-    //     SalesLineDiscount.SetCurrentKey(Type, Code);
-    //     SalesLineDiscount.SetRange(Type, SalesLineDiscount.Type::Item);
-    //     SalesLineDiscount.SetRange(Code, Rec."No.");
-    //     Page.Run(Page::"Sales Line Discounts", SalesLineDiscount);
-    // end;
 
-    // [Obsolete('Replaced by the new implementation (V16) of price calculation.', '17.0')]
+
+    trigger OnOpenPage()
+    begin
+        ExtendedPriceEnabled := PriceCalculationMgt.IsExtendedPriceCalculationEnabled();
+
+    end;
+
+    var
+        PriceCalculationMgt: Codeunit "Price Calculation Mgt.";
+
+    protected var
+        ExtendedPriceEnabled: Boolean;
+
+    local procedure ShowLineDiscounts()
+    var
+        SalesLineDiscount: Record "Sales Line Discount";
+    begin
+        SalesLineDiscount.SetCurrentKey(Type, Code);
+        SalesLineDiscount.SetRange(Type, SalesLineDiscount.Type::Item);
+        SalesLineDiscount.SetRange(Code, Rec."No.");
+        Page.Run(Page::"Sales Line Discounts", SalesLineDiscount);
+    end;
+
+    [Obsolete('Replaced by the new implementation (V16) of price calculation.', '17.0')]
+    local procedure ShowPrices()
+    var
+        SalesPrice: Record "Sales Price";
+    begin
+        SalesPrice.SetCurrentKey("Item No.");
+        SalesPrice.SetRange("Item No.", Rec."No.");
+        Page.Run(Page::"Sales Prices", SalesPrice);
+    end;
 }
